@@ -42,7 +42,31 @@ fn check_game_result(game: &Vec<char>) -> i16 {
     }
 } 
 
-fn check_game_points(game_moves: Vec<Vec<char>>) -> i32 {
+fn check_game_result_part_two(game: &Vec<char>) -> i32 {
+    match game[0] {
+        'A' => match game[2] {
+            'X' => return 3,
+            'Y' => return 4,
+            'Z' => return 8,
+            _ => return -1,
+        },
+        'B' => match game[2] {
+            'X' => return 1,
+            'Y' => return 5,
+            'Z' => return 9,
+            _ => return -1,
+        },
+        'C' => match game[2] {
+            'X' => return 2,
+            'Y' => return 6,
+            'Z' => return 7,
+            _ => return -1,
+        },
+        _ => return -1,
+    }
+} 
+
+fn check_game_points(game_moves: &Vec<Vec<char>>) -> i32 {
     let mut points: i32 = 0;
     for game in game_moves {
         match check_game_result(&game) {
@@ -71,10 +95,21 @@ fn check_game_points(game_moves: Vec<Vec<char>>) -> i32 {
     points
 }
 
+fn check_game_points_part_two(game_moves: &Vec<Vec<char>>) -> i32 {
+    let mut points: i32 = 0;
+    for game in game_moves {
+        points += check_game_result_part_two(&game);
+    }
+
+    points
+}
+
 fn main() {
     let lines: Vec<String> = lines_from_file("src/day2.txt").expect("Could not load lines.");
     let game_moves: Vec<Vec<char>> = create_vector_with_moves(lines);
-    let points: i32 = check_game_points(game_moves);
+    let points: i32 = check_game_points(&game_moves);
+    let points2: i32 = check_game_points_part_two(&game_moves);
 
-    println!("{:?}", points);
+    println!("Part 1: {:?}", points);
+    println!("Part 2: {:?}", points2);
 }
