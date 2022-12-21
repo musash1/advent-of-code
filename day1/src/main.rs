@@ -24,7 +24,6 @@ fn create_vector_with_calories(lines: Vec<String>) -> Vec<i32> {
 }
 
 fn search_sum_of_three_biggest_elves(calories: &mut Vec<i32>) -> i32 {
-    let max: i32 = *calories.iter().max().unwrap();
     let mut sum: i32 = 0;
     let mut i = 0;
     while i < 3 {
